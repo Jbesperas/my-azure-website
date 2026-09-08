@@ -4,185 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Prof. Truly Enriquez</title>
+    <title>Two Truths, One Lie</title>
 
-    <!-- CSS CONNECTION -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
 
 <body>
 
-    <!-- ================= HEADER ================= -->
-
     <header>
-        <div class="container">
+        <div class="logo">🎭</div>
 
-            <h1>My Azure Server</h1>
-
-            <nav>
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
+        <div>
+            <h1>Two Truths, One Lie</h1>
+            <p>Think you can spot the lie?</p>
+	    <p>Made by John Benedict Esperas</p>
+	    <p>Prof. Truly Enriquez</p>
 
         </div>
     </header>
 
 
-    <!-- ================= HERO ================= -->
+    <main>
 
-    <section id="home" class="hero">
+        <!-- CREATE GAME -->
+        <section class="card create-card">
 
-        <div class="hero-content">
+            <div class="section-title">
+                <span>✏️</span>
 
-            <p class="small-text">
-                WELCOME TO MY WEBSITE, I'M JOHN BENEDICT ESPERAS!
-            </p>
-
-            <h2>
-                My Website is
-                <br>
-                <span>Live!</span>
-            </h2>
-
-            <p class="hero-description">
-                This static website is hosted on a
-                Microsoft Azure Virtual Machine using IIS.
-            </p>
-
-            <a href="#about" class="button">
-                Learn More
-            </a>
-
-        </div>
+                <div>
+                    <h2>Create Your Game</h2>
+                    <p>Give everyone three statements about you.</p>
+                </div>
+            </div>
 
 
-        <!-- PICTURE ON THE RIGHT -->
+            <form id="gameForm">
 
-        <div class="hero-image">
+                <label>Your Name</label>
 
-            <img
-                src="profile.jpg"
-                alt="My Profile Picture"
-            >
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= ABOUT ================= -->
-
-    <section id="about" class="section">
-
-        <div class="container">
-
-            <h2>About This Server</h2>
-
-            <p class="section-description">
-                This website is a simple static webpage created
-                using HTML and CSS. It is hosted through
-                Microsoft IIS on an Azure Virtual Machine.
-            </p>
+                <input
+                    type="text"
+                    id="playerName"
+                    placeholder="Enter your name"
+                    maxlength="30"
+                    required
+                >
 
 
-            <div class="cards">
+                <label>Statement 1</label>
 
-                <!-- CARD 1 -->
+                <input
+                    type="text"
+                    id="statement1"
+                    placeholder="Write something about yourself..."
+                    maxlength="120"
+                    required
+                >
 
-                <div class="card">
 
-                    <div class="icon">
-                        ☁️
-                    </div>
+                <label>Statement 2</label>
 
-                    <h3>Azure</h3>
+                <input
+                    type="text"
+                    id="statement2"
+                    placeholder="Write something about yourself..."
+                    maxlength="120"
+                    required
+                >
 
-                    <p>
-                        Hosted on a Microsoft Azure
-                        Virtual Machine.
-                    </p>
+
+                <label>Statement 3</label>
+
+                <input
+                    type="text"
+                    id="statement3"
+                    placeholder="Write something about yourself..."
+                    maxlength="120"
+                    required
+                >
+
+
+                <label>Which statement is the lie?</label>
+
+                <div class="lie-options">
+
+                    <label class="lie-option">
+                        <input type="radio" name="lie" value="1" required>
+                        <span>1</span>
+                    </label>
+
+                    <label class="lie-option">
+                        <input type="radio" name="lie" value="2">
+                        <span>2</span>
+                    </label>
+
+                    <label class="lie-option">
+                        <input type="radio" name="lie" value="3">
+                        <span>3</span>
+                    </label>
 
                 </div>
 
 
-                <!-- CARD 2 -->
+                <button type="submit" class="submit-btn">
+                    🎭 Add My Game
+                </button>
 
-                <div class="card">
+                <p id="status"></p>
 
-                    <div class="icon">
-                        🌐
-                    </div>
+            </form>
 
-                    <h3>IIS</h3>
+        </section>
 
-                    <p>
-                        Internet Information Services
-                        is used as the web server.
-                    </p>
 
+        <!-- GAMES -->
+        <section class="games-section">
+
+            <div class="games-header">
+
+                <div>
+                    <h2>🎲 Guess the Lie</h2>
+                    <p>Can you figure out which one isn't true?</p>
                 </div>
 
+                <button id="randomBtn" class="random-btn">
+                    🎲 Random Game
+                </button>
 
-                <!-- CARD 3 -->
+            </div>
 
-                <div class="card">
 
-                    <div class="icon">
-                        💻
-                    </div>
+            <div id="gamesContainer">
 
-                    <h3>Static Website</h3>
-
-                    <p>
-                        Built using HTML and CSS
-                        without a backend.
-                    </p>
-
+                <div class="loading">
+                    Loading games...
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
-    </section>
+    </main>
 
-
-    <!-- ================= SERVER STATUS ================= -->
-
-    <section id="contact" class="contact">
-
-        <div class="container">
-
-            <h2>Server Status</h2>
-
-            <div class="status">
-
-                <span></span>
-
-                Website Online
-
-            </div>
-
-            <p>
-                If you can see this page, the IIS web server
-                is successfully serving this website.
-            </p>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= FOOTER ================= -->
 
     <footer>
-
-        <p>
-            © 2026 My Azure Server | Hosted with IIS
-        </p>
-
+        <p>Made for the class 🎭 • Two Truths, One Lie</p>
     </footer>
+
+
+    <script src="script.js"></script>
 
 </body>
 </html>
